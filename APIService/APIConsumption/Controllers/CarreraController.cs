@@ -13,7 +13,7 @@ namespace APIConsumption.Controllers
 {
     public class CarreraController : Controller
     {
-        private string baseURL = "http://localhost:44339/";
+        private string baseURL = "https://localhost:44339/";
         // GET: Carrera
         public ActionResult Index()
         {
@@ -41,23 +41,28 @@ namespace APIConsumption.Controllers
                 );
         }
 
-        public JsonResult Guardar(string CarreraID, string Nombre,string Facultad)
+        public JsonResult Guardar(string ID, string NOMBRE,string FACULTAD)
         {
+            
             try
             {
                 CarreraCLS carrera = new CarreraCLS();
-                carrera.ID = CarreraID;
-                carrera.NOMBRE = Nombre;
-                carrera.FACULTAD = Facultad;
+                carrera.ID = ID;
+                carrera.NOMBRE = NOMBRE;
+                carrera.FACULTAD = FACULTAD;
+
+                Console.WriteLine("id " + carrera.ID + " nombre " + carrera.NOMBRE + " facultad " + carrera.FACULTAD);
 
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(baseURL);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                string tarjetaJson = JsonConvert.SerializeObject(carrera);
-                HttpContent body = new StringContent(tarjetaJson, Encoding.UTF8, "application/json");
+                string carreraJson = JsonConvert.SerializeObject(carrera);
+                HttpContent body = new StringContent(carreraJson, Encoding.UTF8, "application/json");
 
-                if (CarreraID == "" || CarreraID == null)
+                HttpResponseMessage findIdResponse = httpClient.GetAsync($"/api/carreras/{ID}").Result;
+
+                if (!findIdResponse.IsSuccessStatusCode)
                 {
                     HttpResponseMessage response = httpClient.PostAsync("/api/carreras", body).Result;
                     if (response.IsSuccessStatusCode)
@@ -72,7 +77,7 @@ namespace APIConsumption.Controllers
                 }
                 else
                 {
-                    HttpResponseMessage response = httpClient.PutAsync($"/api/carreras/{CarreraID}", body).Result;
+                    HttpResponseMessage response = httpClient.PutAsync($"/api/carreras/{ID}", body).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         return Json(
@@ -98,13 +103,13 @@ namespace APIConsumption.Controllers
 
         }
 
-        public JsonResult Eliminar (int CarreraID)
+        public JsonResult Eliminar (string ID)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(baseURL);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpResponseMessage response = httpClient.DeleteAsync($"/api/creditcards/{CarreraID}").Result;
+            HttpResponseMessage response = httpClient.DeleteAsync($"/api/carreras/{ID}").Result;
 
             if (response.IsSuccessStatusCode)
             {

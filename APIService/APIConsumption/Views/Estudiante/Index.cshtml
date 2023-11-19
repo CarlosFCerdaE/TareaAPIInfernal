@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Estudiantes";
+}
+
+<style>
+    #dt-records tbody th, #dt-records tbody td {
+        padding: 0.25rem !important;
+        line-height: 1.3em !important;
+        vertical-align: middle !important;
+    }
+
+    #btnnuevo {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="br-section-wrapper">
+
+    <button id="btnnuevo" class="btn btn-primary" data-target="#modal-record"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+
+    <table id="dt-records" class="table-wrapper table display responsive nowrap table-hover" style="width:100%" data-page-length='10'>
+        <thead class="thead-colored thead-primary">
+            <tr>
+                <th>CIF Estudiante</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Carrera</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<div id="modal-record" class="modal" role="dialog">
+    <div class="modal-dialog" style="width: 400px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Direcciones AW</h3>
+            </div>
+            <div class="modal-body">
+                <form id="NewRecord" role="form">
+                    <div>
+                        <div class="form-group">
+                            <label for="txtCifEstudiante" class="control-label">CIF Estudiante</label>
+                            <input type="text" id="txtCifEstudiante" class="form-control" placeholder="CIF del Estudiante" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtNombreEstudiante" class="control-label">Nombre</label>
+                            <input type="text" id="txtNombreEstudiante" class="form-control" placeholder="Nombre del Estudiante" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtApellidoEstudiante" class="control-label">Apellido</label>
+                            <input type="text" id="txtApellidoEstudiante" class="form-control" placeholder="Apellido del Estudiante" />
+                        </div>
+                        <div class="form-group">
+                            <label for="txtCarreraEstudiante" class="control-label">Carrera</label>
+                            <input type="text" id="txtCarreraEstudiante" class="form-control" placeholder="Carrera del Estudiante" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnguardar" data-dismiss="modal" class="btn btn-primary">Guardar</button>
+                        <button id="btncerrar" data-dismiss="modal" class="btn btn-danger">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Estudiante.js"></script>

@@ -7,9 +7,9 @@ namespace APIConsumption.Models
 {
     public class LibroCLS
     {
-        public string Isbn { get; set; }
-        public string Nombre { get; set; }
-        public string Editorial { get; set; }
-        public string Autor { get; set; }
+        public string ISBN { get; set; }
+        public string NOMBRE { get; set; }
+        public string EDITORIAL { get; set; }
+        public string AUTOR { get; set; }
     }
 }

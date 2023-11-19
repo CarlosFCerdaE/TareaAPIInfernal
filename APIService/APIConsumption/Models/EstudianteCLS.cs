@@ -7,9 +7,9 @@ namespace APIConsumption.Models
 {
     public class EstudianteCLS
     {
-        public string Cif { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Carrera { get; set; }
+        public string CIF { get; set; }
+        public string NOMBRE { get; set; }
+        public string APELLIDO { get; set; }
+        public string CARRERA { get; set; }
     }
 }
