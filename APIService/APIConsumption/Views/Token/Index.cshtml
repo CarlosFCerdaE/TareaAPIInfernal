@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Obtener Token";
+}
+
+<br/>
+
+<input type="button" class="btn btn-success" value="Login" onclick="location.href='@Url.Action("Login","Token")'"/>
+<input type="button" class="btn btn-danger" value="Logout" onclick="location.href='@Url.Action("Logout","Token")'" />
+
+<h3>@ViewBag.Message</h3>
+
