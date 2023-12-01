@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BDPRUEBASSEGURIDADModelStoreContainer" CdmEntityContainer="APISeguridadEntities">
+    <EntitySetMapping Name="tblUsuario">
+      <EntityTypeMapping TypeName="BDPRUEBASSEGURIDADModel.tblUsuario">
+        <MappingFragment StoreEntitySet="tblUsuario">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UsuarioValidar" FunctionName="BDPRUEBASSEGURIDADModel.Store.UsuarioValidar" />
+  </EntityContainerMapping>
+</Mapping>

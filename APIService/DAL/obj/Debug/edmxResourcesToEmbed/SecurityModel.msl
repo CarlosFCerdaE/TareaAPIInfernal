@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="APISecurityModelStoreContainer" CdmEntityContainer="APISecurityEntities">
+    <EntitySetMapping Name="tblUsuario">
+      <EntityTypeMapping TypeName="APISecurityModel.tblUsuario">
+        <MappingFragment StoreEntitySet="tblUsuario">
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Clave" ColumnName="Clave" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UsuarioValidar" FunctionName="APISecurityModel.Store.UsuarioValidar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="APISecurityModel.UsuarioValidar_Result">
+          <ScalarProperty Name="Existe" ColumnName="Existe" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

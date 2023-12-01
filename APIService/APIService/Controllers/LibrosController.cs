@@ -12,6 +12,7 @@ using APIService.Models;
 
 namespace APIService.Controllers
 {
+    [Authorize]
     public class LibrosController : ApiController
     {
         private BDPRUEBASEntities db = new BDPRUEBASEntities();

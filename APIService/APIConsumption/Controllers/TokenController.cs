@@ -13,7 +13,7 @@ namespace WebCRUDapi.Controllers
 {
     public class TokenController : Controller
     {
-        private string baseUrl = "http://localhost:44339";
+        private string baseUrl = "";
         public ActionResult Index()
         {
             if (HttpContext.Session["token"] == null)
@@ -37,8 +37,8 @@ namespace WebCRUDapi.Controllers
 
             Usuario user = new Usuario();
 
-            user.Username = "admin";
-            user.Password = "123456";
+            user.Username = "administrador";
+            user.Password = "12345678910";
 
             string stringData = JsonConvert.SerializeObject(user);
             var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");

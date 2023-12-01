@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 
-namespace CrearWepApi.Models
+namespace APIService.Models
 {
     public class TokenValidationHandler : DelegatingHandler
     {

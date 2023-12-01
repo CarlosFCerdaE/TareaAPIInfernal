@@ -7,18 +7,22 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+//using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using APIService.Models;
 
 namespace APIService.Controllers
 {
+    //[EnableCors(origins:"http://localhost:50689",headers:"*",methods:"*")]
+    [Authorize]
     public class CarrerasController : ApiController
     {
+        
         private BDPRUEBASEntities db = new BDPRUEBASEntities();
 
         // GET: api/Carreras
-        public IQueryable<Carrera> GetCarrera()
-        {
+        public IQueryable<Carrera> GetCarreras()
+        {   
             return db.Carrera.Take(100);
         }
 

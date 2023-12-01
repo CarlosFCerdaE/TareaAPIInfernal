@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="APISeguridadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblUsuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Clave" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="APISeguridadEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
+    <FunctionImport Name="UsuarioValidar" ReturnType="Collection(Boolean)">
+      <Parameter Name="Usuario" Mode="In" Type="String" />
+      <Parameter Name="Clave" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIService", "APIService\AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIConsumption", "APIConsumption\APIConsumption.csproj", "{42DD33FC-B501-4654-A389-95AA8598D144}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{8FC4E146-65A6-4B71-BFD7-116397FBCCA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIToken", "APIToken\APIToken.csproj", "{800B33D4-D898-4AF6-9C97-8374C0405C31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{42DD33FC-B501-4654-A389-95AA8598D144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42DD33FC-B501-4654-A389-95AA8598D144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42DD33FC-B501-4654-A389-95AA8598D144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC4E146-65A6-4B71-BFD7-116397FBCCA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC4E146-65A6-4B71-BFD7-116397FBCCA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC4E146-65A6-4B71-BFD7-116397FBCCA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC4E146-65A6-4B71-BFD7-116397FBCCA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800B33D4-D898-4AF6-9C97-8374C0405C31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800B33D4-D898-4AF6-9C97-8374C0405C31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800B33D4-D898-4AF6-9C97-8374C0405C31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800B33D4-D898-4AF6-9C97-8374C0405C31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
