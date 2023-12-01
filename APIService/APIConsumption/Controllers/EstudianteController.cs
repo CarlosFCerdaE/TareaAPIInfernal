@@ -73,11 +73,17 @@ namespace APIConsumption.Controllers
             }
         }
 
-        public JsonResult Guardar(string CIF, string NOMBRE,string APELLIDO,string CARRERA)
+        public ActionResult Guardar(string CIF, string NOMBRE,string APELLIDO,string CARRERA)
         {
             
             try
             {
+                if (!UsuarioAutenticado() || !TokenValido())
+                {
+                    Metodos metodos = new Metodos();
+                    HttpContext.Session.Add("token", metodos.ObtenerToken());
+                    HttpContext.Session.Add("horaToken", DateTime.Now);
+                }
                 EstudianteCLS estudiante = new EstudianteCLS();
                 estudiante.CIF= CIF;
                 estudiante.NOMBRE= NOMBRE;
@@ -85,8 +91,9 @@ namespace APIConsumption.Controllers
                 estudiante.CARRERA= CARRERA;
 
                 HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(baseURL);
+                httpClient.BaseAddress = new Uri(UrlApi);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
                 string estudianteJson = JsonConvert.SerializeObject(estudiante);
                 HttpContent body = new StringContent(estudianteJson, Encoding.UTF8, "application/json");
@@ -104,6 +111,10 @@ namespace APIConsumption.Controllers
                                 success = true,
                                 message = "Estudiante creado satisfactoriamente"
                             }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Token");
                     }
                 }
                 else
@@ -136,9 +147,17 @@ namespace APIConsumption.Controllers
 
         public JsonResult Eliminar (string CIF)
         {
+            if (!UsuarioAutenticado() || !TokenValido())
+            {
+                Metodos metodos = new Metodos();
+                HttpContext.Session.Add("token", metodos.ObtenerToken());
+                HttpContext.Session.Add("horaToken", DateTime.Now);
+            }
+
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseURL);
+            httpClient.BaseAddress = new Uri(UrlApi);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
             HttpResponseMessage response = httpClient.DeleteAsync($"/api/estudiantes/{CIF}").Result;
 

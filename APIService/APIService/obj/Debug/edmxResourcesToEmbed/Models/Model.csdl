@@ -30,5 +30,15 @@
     <EntitySet Name="Carrera" EntityType="Self.Carrera" />
     <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
     <EntitySet Name="Libro" EntityType="Self.Libro" />
+    <EntitySet Name="Carro" EntityType="BDPRUEBASModel.Carro" />
   </EntityContainer>
+  <EntityType Name="Carro">
+    <Key>
+      <PropertyRef Name="PLACA" />
+    </Key>
+    <Property Name="PLACA" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="COLOR" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MARCA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MODELO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

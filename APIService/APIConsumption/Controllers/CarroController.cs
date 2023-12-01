@@ -12,7 +12,7 @@ using System.Configuration;
 
 namespace APIConsumption.Controllers
 {
-    public class LibroController : Controller
+    public class CarroController : Controller
     {
         private string UrlApi = ConfigurationManager.AppSettings["UrlApi"];
         private int DuracionToken = int.Parse(ConfigurationManager.AppSettings["DuracionToken"]);
@@ -32,6 +32,7 @@ namespace APIConsumption.Controllers
             }
             return false;
         }
+        // GET: Carro
         public ActionResult Index()
         {
             if (!UsuarioAutenticado() || !TokenValido())
@@ -48,10 +49,9 @@ namespace APIConsumption.Controllers
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(UrlApi);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
-            HttpResponseMessage response = httpClient.GetAsync("/api/libros").Result;
+            HttpResponseMessage response = httpClient.GetAsync("/api/carros").Result;
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return RedirectToAction("Index", "Token");
@@ -59,13 +59,13 @@ namespace APIConsumption.Controllers
             else
             {
                 string data = response.Content.ReadAsStringAsync().Result;
-                List<LibroCLS> libros = JsonConvert.DeserializeObject<List<LibroCLS>>(data);
+                List<CarroCLS> carros = JsonConvert.DeserializeObject<List<CarroCLS>>(data);
 
                 return Json(
                     new
                     {
                         success = true,
-                        data = libros,
+                        data = carros,
                         message = "done"
                     },
                     JsonRequestBehavior.AllowGet
@@ -73,7 +73,7 @@ namespace APIConsumption.Controllers
             }
         }
 
-        public ActionResult Guardar(string ISBN, string NOMBRE,string EDITORIAL, string AUTOR)
+        public ActionResult Guardar(string PLACA, string COLOR,string MARCA,string MODELO)
         {
             
             try
@@ -84,32 +84,32 @@ namespace APIConsumption.Controllers
                     HttpContext.Session.Add("token", metodos.ObtenerToken());
                     HttpContext.Session.Add("horaToken", DateTime.Now);
                 }
-                LibroCLS libro = new LibroCLS();
-                libro.ISBN= ISBN;
-                libro.NOMBRE= NOMBRE;
-                libro.EDITORIAL=EDITORIAL;
-                libro.AUTOR= AUTOR;
+                CarroCLS carro = new CarroCLS();
+                carro.PLACA= PLACA;
+                carro.COLOR= COLOR;
+                carro.MARCA= MARCA;
+                carro.MODELO= MODELO;
 
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(UrlApi);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
-                string libroJson = JsonConvert.SerializeObject(libro);
-                HttpContent body = new StringContent(libroJson, Encoding.UTF8, "application/json");
+                string carroJson = JsonConvert.SerializeObject(carro);
+                HttpContent body = new StringContent(carroJson, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage findIdResponse = httpClient.GetAsync($"/api/libros/{ISBN}").Result;
+                HttpResponseMessage findIdResponse = httpClient.GetAsync($"/api/carros/{PLACA}").Result;
 
                 if (!findIdResponse.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage response = httpClient.PostAsync("/api/libros", body).Result;
+                    HttpResponseMessage response = httpClient.PostAsync("/api/carros", body).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         return Json(
                             new
                             {
                                 success = true,
-                                message = "Libro creado satisfactoriamente"
+                                message = "Carro creado satisfactoriamente"
                             }, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -119,14 +119,14 @@ namespace APIConsumption.Controllers
                 }
                 else
                 {
-                    HttpResponseMessage response = httpClient.PutAsync($"/api/libros/{ISBN}", body).Result;
+                    HttpResponseMessage response = httpClient.PutAsync($"/api/carros/{PLACA}", body).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         return Json(
                             new
                             {
                                 success = true,
-                                message = "Libro modificado satisfactoriamente"
+                                message = "Carro modificado satisfactoriamente"
                             }, JsonRequestBehavior.AllowGet);
                     }
                 }
@@ -145,7 +145,7 @@ namespace APIConsumption.Controllers
 
         }
 
-        public JsonResult Eliminar (string ISBN)
+        public JsonResult Eliminar (string PLACA)
         {
             if (!UsuarioAutenticado() || !TokenValido())
             {
@@ -153,12 +153,13 @@ namespace APIConsumption.Controllers
                 HttpContext.Session.Add("token", metodos.ObtenerToken());
                 HttpContext.Session.Add("horaToken", DateTime.Now);
             }
+
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(UrlApi);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
-            HttpResponseMessage response = httpClient.DeleteAsync($"/api/libros/{ISBN}").Result;
+            HttpResponseMessage response = httpClient.DeleteAsync($"/api/carros/{PLACA}").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -166,7 +167,7 @@ namespace APIConsumption.Controllers
                     new
                     {
                         success = true,
-                        message = "Libro eliminado satisfactoriamente"
+                        message = "Carro eliminado satisfactoriamente"
                     }, JsonRequestBehavior.AllowGet);
             }
 

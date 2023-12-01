@@ -28,5 +28,6 @@ namespace APIService.Models
         public virtual DbSet<Carrera> Carrera { get; set; }
         public virtual DbSet<Estudiante> Estudiante { get; set; }
         public virtual DbSet<Libro> Libro { get; set; }
+        public virtual DbSet<Carro> Carro { get; set; }
     }
 }

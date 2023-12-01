@@ -93,8 +93,6 @@ namespace APIConsumption.Controllers
                 carrera.NOMBRE = NOMBRE;
                 carrera.FACULTAD = FACULTAD;
 
-                Console.WriteLine("id " + carrera.ID + " nombre " + carrera.NOMBRE + " facultad " + carrera.FACULTAD);
-
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(UrlApi);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
