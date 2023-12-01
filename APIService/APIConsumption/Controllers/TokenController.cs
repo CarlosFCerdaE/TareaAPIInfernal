@@ -7,13 +7,14 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using WebCRUDapi.Models;
+using APIConsumption.Models;
+using System.Configuration;
 
-namespace WebCRUDapi.Controllers
+namespace APIConsumption.Controllers
 {
     public class TokenController : Controller
     {
-        private string baseUrl = "";
+        private string baseUrl = ConfigurationManager.AppSettings["UrlToken"];
         public ActionResult Index()
         {
             if (HttpContext.Session["token"] == null)
@@ -37,8 +38,8 @@ namespace WebCRUDapi.Controllers
 
             Usuario user = new Usuario();
 
-            user.Username = "administrador";
-            user.Password = "12345678910";
+            user.Username = "Carlos";
+            user.Password = "123";
 
             string stringData = JsonConvert.SerializeObject(user);
             var contentData = new StringContent(stringData, Encoding.UTF8, "application/json");

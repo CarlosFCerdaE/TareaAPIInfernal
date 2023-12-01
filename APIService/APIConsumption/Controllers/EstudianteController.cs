@@ -8,37 +8,69 @@ using System.Net.Http.Headers;
 using APIConsumption.Models;
 using Newtonsoft.Json;
 using System.Text;
+using System.Configuration;
 
 namespace APIConsumption.Controllers
 {
     public class EstudianteController : Controller
     {
-        private string baseURL = "https://localhost:44339/";
+        private string UrlApi = ConfigurationManager.AppSettings["UrlApi"];
+        private int DuracionToken = int.Parse(ConfigurationManager.AppSettings["DuracionToken"]);
+        private DateTime HoraToken;
+
+        private bool UsuarioAutenticado()
+        {
+            return HttpContext.Session["token"] != null;
+        }
+
+        private bool TokenValido()
+        {
+            if (UsuarioAutenticado())
+            {
+                HoraToken = (DateTime)HttpContext.Session["horaToken"];
+                return DuracionToken >= DateTime.Now.Subtract(HoraToken).Minutes;
+            }
+            return false;
+        }
         // GET: Estudiante
         public ActionResult Index()
         {
+            if (!UsuarioAutenticado() || !TokenValido())
+            {
+                Metodos metodos = new Metodos();
+                HttpContext.Session.Add("token", metodos.ObtenerToken());
+                HttpContext.Session.Add("horaToken", DateTime.Now);
+            }
             return View();
         }
 
-        public JsonResult Lista()
+        public ActionResult Lista()
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(baseURL);
+            httpClient.BaseAddress = new Uri(UrlApi);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session["token"].ToString());
 
             HttpResponseMessage response = httpClient.GetAsync("/api/estudiantes").Result;
-            string data = response.Content.ReadAsStringAsync().Result;
-            List<EstudianteCLS> estudiantes = JsonConvert.DeserializeObject<List<EstudianteCLS>>(data);
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return RedirectToAction("Index", "Token");
+            }
+            else
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                List<EstudianteCLS> estudiantes = JsonConvert.DeserializeObject<List<EstudianteCLS>>(data);
 
-            return Json(
-                new
-                {
-                    success = true,
-                    data = estudiantes,
-                    message = "done"
-                },
-                JsonRequestBehavior.AllowGet
-                );
+                return Json(
+                    new
+                    {
+                        success = true,
+                        data = estudiantes,
+                        message = "done"
+                    },
+                    JsonRequestBehavior.AllowGet
+                    );
+            }
         }
 
         public JsonResult Guardar(string CIF, string NOMBRE,string APELLIDO,string CARRERA)

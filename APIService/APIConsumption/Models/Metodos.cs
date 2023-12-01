@@ -8,7 +8,7 @@ using System.Text;
 using System.Web;
 using System.Configuration;
 
-namespace WebCRUDapi.Models
+namespace APIConsumption.Models
 {
     public class Metodos
     {

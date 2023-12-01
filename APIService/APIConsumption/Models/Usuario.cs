@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebCRUDapi.Models
+namespace APIConsumption.Models
 {
     public class Usuario
     {
