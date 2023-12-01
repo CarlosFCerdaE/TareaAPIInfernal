@@ -167,6 +167,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarroController.cs" />
     <Compile Include="Controllers\EstudianteController.cs" />
     <Compile Include="Controllers\LibroController.cs" />
     <Compile Include="Controllers\CarreraController.cs" />
@@ -176,6 +177,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarreraCLS.cs" />
+    <Compile Include="Models\CarroCLS.cs" />
     <Compile Include="Models\CreditCardCLS.cs" />
     <Compile Include="Models\EstudianteCLS.cs" />
     <Compile Include="Models\LibroCLS.cs" />
@@ -196,6 +198,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Carro.js" />
     <Content Include="Scripts\Libro.js" />
     <Content Include="Scripts\Estudiante.js" />
     <Content Include="Scripts\Carrera.js" />
@@ -228,6 +231,7 @@
     <Content Include="Views\Estudiante\Index.cshtml" />
     <Content Include="Views\Libro\Index.cshtml" />
     <Content Include="Views\Token\Index.cshtml" />
+    <Content Include="Views\Carro\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
